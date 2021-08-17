@@ -222,26 +222,6 @@ COMMON_MODULES = [
 
 
 SPEC = {
-    '18.1.5': {
-        'ERTS_VERSION': '7.1',
-        'modules': COMMON_MODULES,
-    },
-    '18.2.3': {
-        'ERTS_VERSION': '7.2.1',
-        'modules': COMMON_MODULES,
-    },
-    '18.3.4': {
-        'ERTS_VERSION': '7.3',
-        'modules': COMMON_MODULES,
-    },
-    '19.0': {
-        'ERTS_VERSION': '8.0',
-        'modules': COMMON_MODULES,
-    },
-    '19.3.6.2': {
-        'ERTS_VERSION': '8.3.5.2',
-        'modules': COMMON_MODULES,
-    },
     '20.0.5': {
         'ERTS_VERSION': '9.0.5',
         'modules': COMMON_MODULES,
@@ -274,6 +254,26 @@ SPEC = {
         'ERTS_VERSION': '11.0.3',
         'modules': COMMON_MODULES,
     },
+    '23.1.2': {
+        'ERTS_VERSION': '11.1.2',
+        'modules': COMMON_MODULES,
+    },
+    '23.2.3': {
+        'ERTS_VERSION': '11.1.7',
+        'modules': COMMON_MODULES,
+    },
+    '23.2.4': {
+        'ERTS_VERSION': '11.1.7',
+        'modules': COMMON_MODULES,
+    },
+    '23.3.4.4': {
+        'ERTS_VERSION': '11.2.2.3',
+        'modules': COMMON_MODULES,
+    },
+    '24.0.5': {
+        'ERTS_VERSION': '12.0.3',
+        'modules': COMMON_MODULES,
+    },    
 }
 
 
@@ -336,8 +336,14 @@ class MakefileMaker:
             provideLine += "%s " % name
         provideLine += '"'
 
+        provideNativeLine = 'RPROVIDES_class-native+="'
+        for name in self.packages:
+            provideNativeLine += "%s-native " % name
+        provideNativeLine += '"'
+
         self.out("ERTS_VERSION = \"" + self.erts_version + "\"")
         self.out(provideLine)
+        self.out(provideNativeLine)
         self.out("")
 
         #
