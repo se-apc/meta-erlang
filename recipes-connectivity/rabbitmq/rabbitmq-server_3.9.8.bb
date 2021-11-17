@@ -1,9 +1,9 @@
 DESCRIPTION = "High-performance AMQP-compliant message broker written in Erlang."
 HOMEPAGE = "http://www.rabbitmq.com/"
 LICENSE = "MPL-1.1"
-LIC_FILES_CHKSUM = "file://LICENSE-MPL-RabbitMQ;md5=af16b76db5b16eaa076c067efcb08596"
+LIC_FILES_CHKSUM = "file://LICENSE-MPL-RabbitMQ;md5=815ca599c9df247a0c7f619bab123dad"
 SECTION = "network"
-PR = "r2"
+PR = "r0"
 
 SRC_URI = "https://github.com/rabbitmq/rabbitmq-server/releases/download/v${PV}/${BPN}-${PV}.tar.xz \
            file://rabbitmq-server \
@@ -14,8 +14,8 @@ SRC_URI = "https://github.com/rabbitmq/rabbitmq-server/releases/download/v${PV}/
            file://rabbitmq-server-volatiles.conf \
            "
 
-SRC_URI[md5sum] = "2f47cc1c92ffd13774f021d5ca5b773c"
-SRC_URI[sha256sum] = "aedc8458701a80167b35958c10090d468c3de11984510b49ec02e777c51b1aba"
+SRC_URI[md5sum] = "1449afe5b09f6b367a683aeed8b38b36"
+SRC_URI[sha256sum] = "97bee9385373c3cdd08fe31b9f01a20a503b1c81af02d23437ff64d76195ee55"
 
 DEPENDS = " \
     python3-native \
@@ -29,8 +29,7 @@ DEPENDS = " \
     coreutils-native\
 "
 
-RDEPENDS_${PN} = "erlang erlang-modules \
-                  ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'socat', '', d)}"
+RDEPENDS_${PN} = "erlang erlang-modules"
 
 do_unpack_append() {
     bb.build.exec_func('do_fetch_deps', d)
@@ -105,7 +104,6 @@ do_install() {
 	    install -m 0755 ${WORKDIR}/rabbitmq-server-setup ${D}${bindir}
         install -d ${D}${sysconfdir}/tmpfiles.d/
         install -m 0644 ${WORKDIR}/rabbitmq-server-volatiles.conf ${D}${sysconfdir}/tmpfiles.d/rabbitmq-server.conf
-
     fi
 }
 
