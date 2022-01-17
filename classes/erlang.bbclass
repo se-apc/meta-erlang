@@ -20,6 +20,7 @@ FILES_${PN}-dev = "\
     ${base_erlang_release}/lib/*/include/* \
     ${base_erlang_release}/lib/*/c_src/* \
     ${base_erlang_release}/lib/*/src/* \
+    ${base_erlang_release}/lib/*/priv/obj \
     ${base_erlang_release}/erts*/src \
     "
 
@@ -81,8 +82,8 @@ FILES_${PN}-dev-tools = "\
 
 ALLOW_EMPTY_${PN} = "1"
 DESCRIPTION_${PN} = ""
-RDEPENDS_${PN} = "${PN}-erts"
-FILES_${PN} = "\
+RDEPENDS_${PN} += "${PN}-erts"
+FILES_${PN} += "\
     ${base_erlang_release}/* \
     "
 
