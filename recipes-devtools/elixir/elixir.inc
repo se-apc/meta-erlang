@@ -7,7 +7,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=e23fadd6ceef8c618fc1c65191d846fa"
 
 DEPENDS += "erlang-native"
-DEPENDS_append_class-native = " erlang-native"
+DEPENDS:append_class-native = " erlang-native"
 
 SRC_URI = "git://github.com/elixir-lang/elixir;branch=master"
 

@@ -5,7 +5,7 @@ inherit native
 
 PR = "r0"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files/23.0:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files/23.0:"
 
 EXTRA_OECONF = "--with-ssl=${STAGING_DIR_NATIVE}"
 
@@ -17,11 +17,11 @@ do_configure() {
     oe_runconf
 }
 
-do_compile_prepend() {
+do_compile:prepend() {
     export TARGET=${HOST_SYS}
 }
 
-do_install_prepend() {
+do_install:prepend() {
     export TARGET=${HOST_SYS}
 }
 

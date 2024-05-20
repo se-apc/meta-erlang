@@ -67,7 +67,7 @@ bitbake erlang-embedded-image-minimal
 
 That will create an image with embedded erlang.
 
-Or add ```IMAGE_INSTALL_append = " erlang"``` in _conf/local.conf_ file and run
+Or add ```IMAGE_INSTALL:append = " erlang"``` in _conf/local.conf_ file and run
 ```bitbake core-image-minimal``` to get an image with erlang support.
 
 ## Supported versions

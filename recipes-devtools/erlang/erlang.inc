@@ -7,12 +7,12 @@ LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=ff253ad767462c46be284da12dda33e8"
 
 BBCLASSEXTEND = "native nativesdk"
 
-DEPENDS_append_class-target = " erlang-native ncurses zlib openssl"
-DEPENDS_append_class-native = " ncurses-native zlib-native openssl-native"
-DEPENDS_append_class-nativesdk = " erlang-native nativesdk-zlib nativesdk-openssl nativesdk-ncurses"
+DEPENDS:append_class-target = " erlang-native ncurses zlib openssl"
+DEPENDS:append_class-native = " ncurses-native zlib-native openssl-native"
+DEPENDS:append_class-nativesdk = " erlang-native nativesdk-zlib nativesdk-openssl nativesdk-ncurses"
 
 
-SRC_URI = "git://github.com/erlang/otp;branch=master \
+SRC_URI = "git://github.com/erlang/otp;branch=master;protocol=https \
     file://environment.d-erlang.sh.in"
 #SRC_URI = "https://github.com/erlang/otp.git;branch=master"
 SRC_URI += "file://fix-wx-configure.patch"
@@ -39,11 +39,11 @@ TARGET_CC_ARCH += "${LDFLAGS}"
 EXTRA_OEMAKE = "BUILD_CC='${BUILD_CC}'"
 
 
-# EXTRA_OECONF_append_arm = " --disable-smp-support --disable-hipe"
-# EXTRA_OECONF_append_armeb = " --disable-smp-support --disable-hipe"
-EXTRA_OECONF_append_mipsel = " --disable-smp-support --disable-hipe"
-EXTRA_OECONF_append_sh3 = " --disable-smp-support --disable-hipe"
-EXTRA_OECONF_append_sh4 = " --disable-smp-support --disable-hipe"
+# EXTRA_OECONF:append_arm = " --disable-smp-support --disable-hipe"
+# EXTRA_OECONF:append_armeb = " --disable-smp-support --disable-hipe"
+EXTRA_OECONF:append_mipsel = " --disable-smp-support --disable-hipe"
+EXTRA_OECONF:append_sh3 = " --disable-smp-support --disable-hipe"
+EXTRA_OECONF:append_sh4 = " --disable-smp-support --disable-hipe"
 
 NATIVE_BIN = "${STAGING_LIBDIR_NATIVE}/erlang/bin"
 
@@ -84,11 +84,11 @@ do_configure_class-nativesdk() {
 }
 
 
-do_compile_prepend_class-native() {
+do_compile:prepend_class-native() {
     export TARGET=${HOST_SYS}
 }
 
-do_compile_prepend_class-nativesdk() {
+do_compile:prepend_class-nativesdk() {
     export TARGET=${HOST_SYS}
 }
 
@@ -98,11 +98,11 @@ do_compile_class-target() {
     oe_runmake
 }
 
-do_install_prepend_class-native() {
+do_install:prepend_class-native() {
     export TARGET=${HOST_SYS}
 }
 
-do_install_prepend_class-nativesdk() {
+do_install:prepend_class-nativesdk() {
     export TARGET=${HOST_SYS}
 
     sed -i -e 's,@ERTS_VERSION@,${ERTS_VERSION},g' \
@@ -130,18 +130,18 @@ do_install_class-target() {
     chown -R root:root ${D}${libdir}/erlang
 }
 
-do_install_prepend_class-native() {
+do_install:prepend_class-native() {
     export TARGET=${HOST_SYS}
 }
 
-do_install_append_class-nativesdk() {
+do_install:append_class-nativesdk() {
     rm -f ${D}/${libdir}/erlang/Install
     chown -R root:root ${D}${libdir}/erlang
 }
 
-do_install_append_class-target() {
+do_install:append_class-target() {
 	# remove erlang code that does not need to be loaded by the erlang runtime
 	rm -rf ${D}/${libdir}/erlang/lib/erts-${ERTS_VERSION}/ebin
 }
 
-FILES_${PN}_append_class-nativesdk = " ${SDKPATHNATIVE}/environment-setup.d/erlang.sh"
+FILES_${PN}:append_class-nativesdk = " ${SDKPATHNATIVE}/environment-setup.d/erlang.sh"

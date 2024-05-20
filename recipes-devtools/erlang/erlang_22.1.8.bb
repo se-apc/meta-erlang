@@ -4,4 +4,4 @@ require erlang-${PV}-manifest.inc
 
 PR = "r1"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files/22.1:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files/22.1:"

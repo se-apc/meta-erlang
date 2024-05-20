@@ -18,7 +18,7 @@ LICENSE = "BSD-3-Clause"
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=5d697daa4658cdb1e2074fd1f1b4f2a4"
 
-SRC_URI = "git://github.com/klacke/yaws;protocol=https \
+SRC_URI = "git://github.com/klacke/yaws;branch=master;protocol=https \
            file://yaws.conf \
            file://yaws.init"
 
@@ -39,7 +39,7 @@ EXTRA_OECONF = "\
 
 EXTRA_OEMAKE = "WARNINGS_AS_ERRORS="
 
-do_install_append() {
+do_install:append() {
 	# Install systemd unit files
 	install -d ${D}${systemd_unitdir}/system
 	install -m 0644 ${S}/scripts/systemd/yaws.service ${D}${systemd_unitdir}/system

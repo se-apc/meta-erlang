@@ -21,7 +21,7 @@ LICENSE = "GPL-2.0"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=81d50b500048941f0838c57e6a7c5ed0"
 
-SRC_URI = "git://github.com/processone/ejabberd;protocol=https \
+SRC_URI = "git://github.com/processone/ejabberd;branch=master;protocol=https \
            file://0001-Fix-escript-path.patch \
            file://ejabberd.init"
 
@@ -44,7 +44,7 @@ export ERL_CFLAGS = "-I${STAGING_LIBDIR}/erlang/lib/${@get_erlang_application(d,
 
 export ERL_EI_LIBDIR = "${STAGING_LIBDIR}/erlang/lib/${@get_erlang_application(d, "erl_interface")}/lib"
 
-do_configure_append() {
+do_configure:append() {
     make deps
 
     for i in fast_tls fast_xml fast_yaml eimp ezlib stringprep ezlib; do
@@ -55,7 +55,7 @@ do_configure_append() {
     cd ${S}
 }
 
-do_install_append() {
+do_install:append() {
 	# Fix ejabberdctl
 	sed -i -e 's,^ERL=.*$,ERL=${bindir}/erl,g' \
 		${D}/${sbindir}/ejabberdctl
@@ -108,7 +108,7 @@ FILES_${PN} += " \
                ${root_prefix}/run"
 
 USERADD_PACKAGES = "${PN}"
-USERADD_PARAM_${PN} = "--system --create-home --home-dir ${localstatedir}/lib/ejabberd \
+USERADD_PARAM:${PN} = "--system --create-home --home-dir ${localstatedir}/lib/ejabberd \
     --shell /bin/false --user-group ejabberd"
 
 INITSCRIPT_NAME = "ejabberd"

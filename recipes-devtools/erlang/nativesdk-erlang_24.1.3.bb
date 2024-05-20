@@ -12,7 +12,7 @@ RDEPENDS_${PN} = "nativesdk-ncurses nativesdk-erlang-modules"
 SRC_URI += "file://0001-Add-pkg-config-support-for-erl_interface.patch"
 SRC_URI += "file://0002-Add-pkg-config-support-for-erts.patch"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files/24/${PV}:${THISDIR}/files/24:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files/24/${PV}:${THISDIR}/files/24:"
 
 OTP_BUILD_CONFIGURE_OPTS = "update_configure --no-commit"
 
@@ -35,15 +35,15 @@ do_configure() {
     oe_runconf
 }
 
-do_compile_prepend() {
+do_compile:prepend() {
     export TARGET=${HOST_SYS}
 }
 
-do_install_prepend() {
+do_install:prepend() {
     export TARGET=${HOST_SYS}
 }
 
-do_install_append() {
+do_install:append() {
     rm -f ${D}/${libdir}/erlang/Install
 }
 
