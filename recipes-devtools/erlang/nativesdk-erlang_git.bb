@@ -10,8 +10,8 @@ require erlang-manifest.inc
 
 ALLOW_EMPTY_${PN}="1"
 DESCRIPTION_${PN}=""
-RDEPENDS_${PN} = "nativesdk-ncurses "
-FILES_${PN}+="${bindir} ${libdir}/erlang"
+RDEPENDS:${PN} = "nativesdk-ncurses "
+FILES:${PN}+="${bindir} ${libdir}/erlang"
 
 DEPENDS = "erlang-native openssl ncurses"
 

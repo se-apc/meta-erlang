@@ -7,7 +7,7 @@ require erlang-${PV}-manifest.inc
 
 DEPENDS = "erlang-native openssl ncurses"
 
-RDEPENDS_${PN} = "nativesdk-ncurses nativesdk-erlang-modules"
+RDEPENDS:${PN} = "nativesdk-ncurses nativesdk-erlang-modules"
 
 SRC_URI += "file://0001-Add-pkg-config-support-for-erl_interface.patch"
 SRC_URI += "file://0002-Add-pkg-config-support-for-erts.patch"

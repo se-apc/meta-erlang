@@ -144,4 +144,4 @@ do_install:append_class-target() {
 	rm -rf ${D}/${libdir}/erlang/lib/erts-${ERTS_VERSION}/ebin
 }
 
-FILES_${PN}:append_class-nativesdk = " ${SDKPATHNATIVE}/environment-setup.d/erlang.sh"
+FILES:${PN}:append_class-nativesdk = " ${SDKPATHNATIVE}/environment-setup.d/erlang.sh"
