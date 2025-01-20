@@ -98,6 +98,20 @@ do_compile_class-target() {
     oe_runmake
 }
 
+do_compile_append_class-target() {
+    TARGET=${TARGET_SYS} \
+    PATH=${NATIVE_BIN}:$PATH \
+    oe_runmake 'TYPE=debug'
+}
+
+do_compile_append_class-native() {
+    oe_runmake 'TYPE=debug'
+}
+
+do_compile_append_class-nativesdk() {
+    oe_runmake 'TYPE=debug'
+}
+
 do_install_prepend_class-native() {
     export TARGET=${HOST_SYS}
 }
@@ -116,6 +130,10 @@ do_install_class-target() {
     TARGET=${TARGET_SYS} \
     PATH=${NATIVE_BIN}:$PATH \
     oe_runmake 'DESTDIR=${D}' install
+
+    TARGET=${TARGET_SYS} \
+    PATH=${NATIVE_BIN}:$PATH \
+    oe_runmake 'DESTDIR=${D}' 'TYPE=debug' install
     for f in erl start
         do sed -i -e 's:ROOTDIR=.*:ROOTDIR=${libdir}/erlang:' \
             ${D}/${libdir}/erlang/erts-${ERTS_VERSION}/bin/$f ${D}/${libdir}/erlang/bin/$f
@@ -134,7 +152,12 @@ do_install_prepend_class-native() {
     export TARGET=${HOST_SYS}
 }
 
+do_install_append_class-native() {
+    oe_runmake 'DESTDIR=${D}' 'TYPE=debug' install
+}
+
 do_install_append_class-nativesdk() {
+    oe_runmake 'DESTDIR=${D}' 'TYPE=debug' install
     rm -f ${D}/${libdir}/erlang/Install
     chown -R root:root ${D}${libdir}/erlang
 }
